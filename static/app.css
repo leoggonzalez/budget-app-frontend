@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@300;400;600&family=Oxygen:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap');
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -64,8 +64,10 @@ table {
   --size-xl: 48px;
   --size-xxl: 72px;
 
-  --font-primary: 'Noto Serif Display', serif;
-  --font-secondary: 'Oxygen', sans-serif;
+  --font-primary: 'Nunito', sans-serif;
+  --font-secondary: 'Roboto', sans-serif;
+
+  --radius-sm: 4px;
 }
 
 body {
@@ -89,4 +91,8 @@ h3 {
 
 a {
   color: var(--color-primary);
+}
+
+.icon {
+  font-size: 24px;
 }

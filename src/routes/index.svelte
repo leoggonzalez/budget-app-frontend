@@ -1,5 +1,5 @@
 <script>
-	import Form from '../components/form.svelte';
+	import Page from '../components/page.svelte';
 </script>
 
-<h1>Welcome to the Budget App</h1>
+<Page title="Welcome to Budget App" />

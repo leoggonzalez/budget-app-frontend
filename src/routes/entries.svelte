@@ -1,4 +1,5 @@
 <script>
+	import Page from '../components/page.svelte';
 	import EntriesList from '../entries/entries_list.svelte';
 </script>
 
@@ -6,6 +7,6 @@
 	<title>Entries</title>
 </svelte:head>
 
-<h1>Entries</h1>
-
-<EntriesList />
+<Page title="Entries">
+	<EntriesList />
+</Page>

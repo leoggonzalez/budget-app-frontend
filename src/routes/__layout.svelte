@@ -5,9 +5,7 @@
 
 <div class="app">
 	<Nav />
-	<Page>
-		<slot />
-	</Page>
+	<slot />
 </div>
 
 <style>
