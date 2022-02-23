@@ -1,6 +1,6 @@
 <script>
-	import Page from '../components/page.svelte';
 	import Nav from '../components/nav.svelte';
+	import '../styles/global.css';
 </script>
 
 <div class="app">

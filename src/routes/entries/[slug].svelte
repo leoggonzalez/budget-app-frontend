@@ -4,8 +4,6 @@
 		const url = `http://localhost:3000/entries/${page.params.slug}.json`;
 		const res = await fetch(url);
 
-		console.log(res);
-
 		if (res.ok) {
 			return {
 				props: {

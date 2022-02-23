@@ -1,6 +1,11 @@
-<script>
+<script type="ts">
+	import Button from '../components/button.svelte';
 	import Page from '../components/page.svelte';
+	import Stack from '../components/stack.svelte';
+	import AddEntry from '../entries/add_entry.svelte';
 	import EntriesList from '../entries/entries_list.svelte';
+
+	let displayModal: boolean;
 </script>
 
 <svelte:head>
@@ -8,5 +13,13 @@
 </svelte:head>
 
 <Page title="Entries">
-	<EntriesList />
+	<Stack>
+		<header>
+			<Button on:click={() => (displayModal = true)}>Add Entry</Button>
+		</header>
+		<EntriesList />
+	</Stack>
+	{#if displayModal}
+		<AddEntry open={displayModal} on:close={() => (displayModal = false)} />
+	{/if}
 </Page>

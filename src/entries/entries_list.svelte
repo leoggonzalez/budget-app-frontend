@@ -1,9 +1,8 @@
 <script type="ts">
 	import { deleteEntry } from '../model/entries';
 	import { entries } from '../stores/entries';
-	import { goto } from '$app/navigation';
-	import Card from '../components/card.svelte';
 	import Stack from '../components/stack.svelte';
+	import Entry from './entry.svelte';
 
 	let loadingDelete: number | null = null;
 	const handleDelete = async function (id: number): Promise<void> {
@@ -26,21 +25,7 @@
 		<Stack>
 			{#each $entries as entry (entry.id)}
 				<li class="list-item">
-					<Card options={['edit', 'delete']}>
-						<header class="list-item__header">
-							<p>Entry n°: {entry.id}</p>
-							<button on:click={() => goto(`/entries/${entry.id}`, { replaceState: true })}
-								>edit</button
-							>
-							<button on:click={() => handleDelete(entry.id)}
-								>{loadingDelete === entry.id ? 'loading' : 'delete'}</button
-							>
-						</header>
-						<div class="list-item__body">
-							<p><strong>Amount:</strong> {entry.amount}</p>
-							<p><strong>Description:</strong> {entry.description}</p>
-						</div>
-					</Card>
+					<Entry {entry} />
 				</li>
 			{/each}
 		</Stack>

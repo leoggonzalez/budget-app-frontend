@@ -52,7 +52,7 @@
 		background-color: white;
 		border-radius: var(--radius-sm);
 		display: grid;
-		grid-template-columns: auto 1fr;
+		grid-template-columns: 1fr auto;
 		grid-template-areas: 'body options';
 		overflow: hidden;
 	}
@@ -64,25 +64,29 @@
 
 	.card-display-options,
 	.card-options {
-		margin-left: auto;
 		padding: var(--size-sm);
 		display: flex;
 		align-items: center;
 		grid-area: options;
 		opacity: 0;
-		position: float;
+		position: absolute;
 		pointer-events: none;
 	}
 
 	.card-display-options.active,
 	.card-options.active {
+		position: relative;
 		opacity: unset;
-		position: unset;
 		pointer-events: unset;
 	}
 
 	.card-options {
 		background-color: var(--color-primary);
 		color: var(--color-accent);
+		transform: translateX(100%);
+		transition: 0.3s linear;
+	}
+	.card-options.active {
+		transform: translateX(0);
 	}
 </style>

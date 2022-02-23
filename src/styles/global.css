@@ -56,7 +56,10 @@ table {
   --color-background-primary: #C7CEDB;
   --color-background-secondary: #A0AAB2;
   --color-accent: #94849B;
+  --color-success: #87D30D;
+  --color-error: #F5978F;
 
+  --size-xxs: 4px;
   --size-xs: 8px;
   --size-sm: 12px;
   --size-md: 24px;
@@ -88,6 +91,13 @@ h2 {
 h3 {
   font-size: 1.5em;
 }
+h4 {
+  font-size: 1.2em;
+}
+
+small {
+  font-size: 0.85em;
+}
 
 a {
   color: var(--color-primary);
@@ -95,4 +105,8 @@ a {
 
 .icon {
   font-size: 24px;
+}
+
+.clickable {
+  cursor: pointer;
 }
