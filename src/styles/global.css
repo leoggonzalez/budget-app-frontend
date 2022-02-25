@@ -1,4 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&family=Roboto:wght@300;400;700&display=swap');
+@font-face {
+  font-family: 'Nunito';
+  src: url(/static/fonts/Nunito/Nunito-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: 'Nunito';
+  src: url(/static/fonts/Nunito/static/Nunito-Bold.ttf);
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url(/static/fonts/Roboto/Roboto-Regular.ttf);
+}
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -62,6 +74,7 @@ table {
   --size-xxs: 4px;
   --size-xs: 8px;
   --size-sm: 12px;
+  --size-font: 16px;
   --size-md: 24px;
   --size-lg: 32px;
   --size-xl: 48px;
@@ -71,11 +84,15 @@ table {
   --font-secondary: 'Roboto', sans-serif;
 
   --radius-sm: 4px;
+
+  --page-size-desktop: 980px;
+  --page-size-tablet: 780px;
+  --page-size-mobile: 390px;
 }
 
 body {
   font-family: var(--font-primary);
-  font-size: 16px;
+  font-size: var(--size-font);
 }
 
 h1, h2, h3, h4, h5 {
@@ -101,12 +118,4 @@ small {
 
 a {
   color: var(--color-primary);
-}
-
-.icon {
-  font-size: 24px;
-}
-
-.clickable {
-  cursor: pointer;
 }

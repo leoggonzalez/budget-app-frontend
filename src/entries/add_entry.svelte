@@ -1,10 +1,12 @@
 <script>
 	import { createEntry } from './../model/entries';
-
 	import Dialog from '../components/dialog.svelte';
 	import { entries } from './../stores/entries';
 	import { createEventDispatcher } from 'svelte';
 	import Stack from '../components/stack.svelte';
+	import Textfield from '../components/form/textfield.svelte';
+	import Numberfield from '../components/form/numberfield.svelte';
+	import FormSubmit from '../components/form/form-submit.svelte';
 
 	export let open = false;
 
@@ -26,17 +28,12 @@
 	};
 </script>
 
-<Dialog {open} on:close on:confirm={onSubmit} title="Add new entry">
-	<form action="#">
+<Dialog {open} on:close on:confirm={onSubmit} title="Add new entry" size="mobile">
+	<form on:submit={() => console.log('submit')} action="#">
 		<Stack>
-			<div class="form-group">
-				<label for="amount" class="form-label">Amount: </label>
-				<input id="amount" type="number" class="form-input" bind:value={amount} />
-			</div>
-			<div class="form-group">
-				<label for="description" class="form-label">Description: </label>
-				<input id="description" type="text" class="form-input" bind:value={description} />
-			</div>
+			<Numberfield label="Amount: " bind:value={amount} />
+			<Textfield label="Description: " bind:value={description} />
+			<FormSubmit />
 		</Stack>
 	</form>
 </Dialog>

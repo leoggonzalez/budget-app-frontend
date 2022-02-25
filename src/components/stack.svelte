@@ -17,7 +17,9 @@
 	.stack.line {
 		grid-auto-flow: column;
 	}
-
+	.stack--sm {
+		gap: var(--size-sm);
+	}
 	.stack--lg {
 		gap: var(--size-lg);
 	}

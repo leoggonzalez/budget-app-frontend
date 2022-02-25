@@ -1,37 +1,30 @@
-<script>
+<script type="ts">
 	export let open = false;
 	export let title = 'Dialog';
+	export let size: 'tablet' | 'mobile' = undefined;
 
 	import { createEventDispatcher } from 'svelte';
+	import Icon from './icon.svelte';
 	import Stack from './stack.svelte';
 
 	const dispatch = createEventDispatcher();
 
-	const close = function () {
+	const close = function (): void {
 		dispatch('close');
-	};
-	const confirm = function () {
-		dispatch('confirm');
 	};
 </script>
 
-<dialog {open}>
+<dialog {open} class={size}>
 	<div class="dialog-background" on:click={close} />
 	<div class="dialog-container">
 		<Stack size="lg">
 			<header class="dialog-header">
 				<h4>{title}</h4>
-				<div class="icon clickable" on:click={close}>
-					<i class="fa-solid fa-xmark" />
-				</div>
+				<Icon on:click={close} name="fa-solid fa-xmark" button />
 			</header>
 			<div class="dialog-body">
 				<slot />
 			</div>
-			<footer class="dialog-footer">
-				<button on:click={close}>cancel</button>
-				<button on:click={confirm}>confirm</button>
-			</footer>
 		</Stack>
 	</div>
 </dialog>
@@ -49,9 +42,26 @@
 		padding: 0;
 		border: none;
 		background-color: transparent;
-		display: flex;
+		display: grid;
+		grid-template-columns: minmax(var(--size-md), 1fr) minmax(auto, var(--page-size-desktop)) minmax(
+				var(--size-md),
+				1fr
+			);
+		grid-template-areas: 'gutter-left dialog gutter-right';
 		align-items: center;
-		justify-content: center;
+	}
+	dialog.tablet {
+		grid-template-columns: minmax(var(--size-md), 1fr) minmax(auto, var(--page-size-tablet)) minmax(
+				var(--size-md),
+				1fr
+			);
+	}
+
+	dialog.mobile {
+		grid-template-columns: minmax(var(--size-sm), 1fr) minmax(auto, var(--page-size-mobile)) minmax(
+				var(--size-sm),
+				1fr
+			);
 	}
 
 	.dialog-background {
@@ -66,6 +76,7 @@
 		transform: translateY(-30%);
 		display: flex;
 		flex-direction: column;
+		grid-area: dialog;
 	}
 
 	.dialog-header {

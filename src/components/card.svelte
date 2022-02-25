@@ -1,4 +1,6 @@
 <script type="ts">
+	import Icon from './icon.svelte';
+
 	import Stack from './stack.svelte';
 
 	export let options: Array<'edit' | 'delete'> = [];
@@ -24,9 +26,7 @@
 	</div>
 	{#if options.length}
 		<div class="card-display-options {!displayOptions && 'active'}" on:click={handleDisplayOptions}>
-			<div class="icon">
-				<i class="fa-solid fa-ellipsis-vertical" />
-			</div>
+			<Icon name="fa-solid fa-ellipsis-vertical" />
 		</div>
 		<div
 			class="card-options {displayOptions && 'active'}"
@@ -38,7 +38,7 @@
 				<Stack line>
 					{#each options as option}
 						<li class="option">
-							<i class={optionIcons[option]} />
+							<Icon name={optionIcons[option]} font />
 						</li>
 					{/each}
 				</Stack>

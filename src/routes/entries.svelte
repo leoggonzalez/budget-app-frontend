@@ -1,5 +1,6 @@
 <script type="ts">
 	import Button from '../components/button.svelte';
+	import Icon from '../components/icon.svelte';
 	import Page from '../components/page.svelte';
 	import Stack from '../components/stack.svelte';
 	import AddEntry from '../entries/add_entry.svelte';
@@ -15,7 +16,10 @@
 <Page title="Entries">
 	<Stack>
 		<header>
-			<Button on:click={() => (displayModal = true)}>Add Entry</Button>
+			<Button on:click={() => (displayModal = true)}>
+				<Icon font name="fa-solid fa-add" />
+				Add Entry
+			</Button>
 		</header>
 		<EntriesList />
 	</Stack>

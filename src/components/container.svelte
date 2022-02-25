@@ -4,7 +4,7 @@
 
 <style>
 	.container {
-		max-width: 980px;
+		max-width: var(--page-size-desktop);
 		margin: 0 auto;
 		padding: 0 var(--size-sm);
 	}
