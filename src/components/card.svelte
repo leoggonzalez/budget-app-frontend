@@ -1,6 +1,6 @@
 <script type="ts">
+	import { createEventDispatcher } from 'svelte';
 	import Icon from './icon.svelte';
-
 	import Stack from './stack.svelte';
 
 	export let options: Array<'edit' | 'delete'> = [];
@@ -10,83 +10,79 @@
 		delete: 'fa-solid fa-trash-can'
 	};
 
-	let displayOptions = false;
+	let displayOptions: boolean;
 
 	let optionsNode: HTMLDivElement;
-
 	function handleDisplayOptions() {
 		displayOptions = true;
-		optionsNode.focus();
+		setTimeout(() => {
+			optionsNode.focus();
+		}, 300);
 	}
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div class="card">
 	<div class="card-body">
 		<slot />
 	</div>
-	{#if options.length}
-		<div class="card-display-options {!displayOptions && 'active'}" on:click={handleDisplayOptions}>
-			<Icon name="fa-solid fa-ellipsis-vertical" />
-		</div>
-		<div
-			class="card-options {displayOptions && 'active'}"
-			on:blur={() => (displayOptions = false)}
-			tabindex="0"
-			bind:this={optionsNode}
-		>
-			<ul class="options">
-				<Stack line>
-					{#each options as option}
-						<li class="option">
-							<Icon name={optionIcons[option]} font />
-						</li>
-					{/each}
-				</Stack>
-			</ul>
-		</div>
-	{/if}
+	<div class={`options-trigger ${displayOptions ? 'active' : ''}`} on:click={handleDisplayOptions}>
+		<Icon name="fa-solid fa-ellipsis-vertical" />
+	</div>
+	<div
+		class={`options ${displayOptions ? 'active' : ''}`}
+		on:blur={() => (displayOptions = false)}
+		tabindex="0"
+		bind:this={optionsNode}
+	>
+		<ul class="option-items">
+			<Stack line>
+				{#each options as option}
+					<li class="option-item" on:click={() => dispatch(option)}>
+						<Icon name={optionIcons[option]} font />
+					</li>
+				{/each}
+			</Stack>
+		</ul>
+	</div>
 </div>
 
 <style>
 	.card {
 		background-color: white;
-		border-radius: var(--radius-sm);
-		display: grid;
-		grid-template-columns: 1fr auto;
-		grid-template-areas: 'body options';
-		overflow: hidden;
-	}
-	.card-body {
 		padding: var(--size-sm);
-		width: 100%;
-		grid-area: body;
+		position: relative;
+		overflow: hidden;
+		border-radius: 6px;
 	}
-
-	.card-display-options,
-	.card-options {
+	.options-trigger,
+	.options {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
 		padding: var(--size-sm);
 		display: flex;
 		align-items: center;
-		grid-area: options;
+	}
+
+	.options-trigger.active {
 		opacity: 0;
-		position: absolute;
+	}
+
+	.options {
+		background-color: aliceblue;
+		opacity: 0;
 		pointer-events: none;
-	}
-
-	.card-display-options.active,
-	.card-options.active {
-		position: relative;
-		opacity: unset;
-		pointer-events: unset;
-	}
-
-	.card-options {
+		transform: translateX(100%);
+		transition: 0.3s;
 		background-color: var(--color-primary);
 		color: var(--color-accent);
-		transform: translateX(100%);
-		transition: 0.3s linear;
 	}
-	.card-options.active {
+	.options.active {
+		opacity: 1;
+		pointer-events: all;
 		transform: translateX(0);
 	}
 </style>

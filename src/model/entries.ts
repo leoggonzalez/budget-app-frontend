@@ -6,7 +6,20 @@ export interface Entry {
 	updatedAt: Date;
 }
 
-export async function getEntry(id: number): Promise<Entry> {
+export async function createEntry(entry: Partial<Entry>): Promise<Entry> {
+	const res = await fetch('http://localhost:3000/entries', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(entry)
+	});
+	const newEntry = await res.json();
+
+	return newEntry;
+}
+
+export async function readEntry(id: number): Promise<Entry> {
 	const res = await fetch(`http://localhost:3000/entries/${id}`, {
 		method: 'GET',
 		headers: {
@@ -20,9 +33,9 @@ export async function getEntry(id: number): Promise<Entry> {
 	return entry;
 }
 
-export async function createEntry(entry: Partial<Entry>): Promise<Entry> {
-	const res = await fetch('http://localhost:3000/entries', {
-		method: 'POST',
+export async function updateEntry(entry: Entry): Promise<Entry> {
+	const res = await fetch(`http://localhost:3000/entries/${entry.id}`, {
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},

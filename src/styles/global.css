@@ -1,15 +1,15 @@
 @font-face {
-  font-family: 'Nunito';
-  src: url(/static/fonts/Nunito/Nunito-VariableFont_wght.ttf);
+	font-family: 'Nunito';
+	src: url(/static/fonts/Nunito/Nunito-VariableFont_wght.ttf);
 }
 @font-face {
-  font-family: 'Nunito';
-  src: url(/static/fonts/Nunito/static/Nunito-Bold.ttf);
-  font-weight: bold;
+	font-family: 'Nunito';
+	src: url(/static/fonts/Nunito/static/Nunito-Bold.ttf);
+	font-weight: bold;
 }
 @font-face {
-  font-family: 'Roboto';
-  src: url(/static/fonts/Roboto/Roboto-Regular.ttf);
+	font-family: 'Roboto';
+	src: url(/static/fonts/Roboto/Roboto-Regular.ttf);
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -17,19 +17,87 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -38,21 +106,34 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
 body {
 	line-height: 1;
 }
-ol, ul {
+ol,
+ul {
 	list-style: none;
 }
-blockquote, q {
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
@@ -61,61 +142,68 @@ table {
 	border-spacing: 0;
 }
 
+* {
+	box-sizing: border-box;
+}
 
 :root {
-  --color-primary: #2E3532;
-  --color-secondary: #7E9181;
-  --color-background-primary: #C7CEDB;
-  --color-background-secondary: #A0AAB2;
-  --color-accent: #94849B;
-  --color-success: #87D30D;
-  --color-error: #F5978F;
+	--color-primary: #2e3532;
+	--color-secondary: #7e9181;
+	--color-background-primary: #c7cedb;
+	--color-background-secondary: #a0aab2;
+	--color-accent: #94849b;
+	--color-success: #87d30d;
+	--color-error: #f5978f;
 
-  --size-xxs: 4px;
-  --size-xs: 8px;
-  --size-sm: 12px;
-  --size-font: 16px;
-  --size-md: 24px;
-  --size-lg: 32px;
-  --size-xl: 48px;
-  --size-xxl: 72px;
+	--size-xxs: 4px;
+	--size-xs: 8px;
+	--size-sm: 12px;
+	--size-font: 16px;
+	--size-md: 24px;
+	--size-lg: 32px;
+	--size-xl: 48px;
+	--size-xxl: 72px;
 
-  --font-primary: 'Nunito', sans-serif;
-  --font-secondary: 'Roboto', sans-serif;
+	--font-primary: 'Nunito', sans-serif;
+	--font-secondary: 'Roboto', sans-serif;
 
-  --radius-sm: 4px;
+	--radius-sm: 4px;
 
-  --page-size-desktop: 980px;
-  --page-size-tablet: 780px;
-  --page-size-mobile: 390px;
+	--page-size-desktop: 980px;
+	--page-size-tablet: 780px;
+	--page-size-mobile: 390px;
 }
 
 body {
-  font-family: var(--font-primary);
-  font-size: var(--size-font);
+	font-family: var(--font-primary);
+	font-size: var(--size-font);
 }
 
-h1, h2, h3, h4, h5 {
-  font-family: var(--font-secondary);
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: var(--font-secondary);
 }
 
 h1 {
-  font-size: 5rem;
+	font-size: 5rem;
 }
 h2 {
-  font-size: 3rem;
+	font-size: 3rem;
 }
 h3 {
-  font-size: 1.5em;
+	font-size: 1.5em;
 }
 h4 {
-  font-size: 1.2em;
+	font-size: 1.2em;
 }
 
 small {
-  font-size: 0.85em;
+	font-size: 0.85em;
 }
 
 a {
-  color: var(--color-primary);
+	color: var(--color-primary);
 }

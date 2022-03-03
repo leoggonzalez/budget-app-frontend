@@ -3,7 +3,7 @@
 	import Icon from '../components/icon.svelte';
 	import Page from '../components/page.svelte';
 	import Stack from '../components/stack.svelte';
-	import AddEntry from '../entries/add_entry.svelte';
+	import EntryForm from '../entries/entry_form.svelte';
 	import EntriesList from '../entries/entries_list.svelte';
 
 	let displayModal: boolean;
@@ -24,6 +24,6 @@
 		<EntriesList />
 	</Stack>
 	{#if displayModal}
-		<AddEntry open={displayModal} on:close={() => (displayModal = false)} />
+		<EntryForm open={displayModal} on:close={() => (displayModal = false)} />
 	{/if}
 </Page>
