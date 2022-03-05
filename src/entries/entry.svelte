@@ -1,6 +1,5 @@
 <script type="ts">
 	import Card from '../components/card.svelte';
-	import NewCard from '../components/card.svelte';
 	import type { Entry } from '../model/entries';
 
 	export let entry: Entry;
@@ -20,8 +19,7 @@
 		</div>
 		<div class="entry-details">
 			<header class="entry-details__header">
-				<small class="entry-id">{entry.id}</small> -
-				<small class="entry-date">{entry.createdAt?.toLocaleString()}</small>
+				<small class="entry-date">{entry.createdAt?.toLocaleDateString()}</small>
 			</header>
 			<p>{entry.description}</p>
 		</div>
@@ -42,10 +40,6 @@
 
 	.entry-amount.positive {
 		color: var(--color-success);
-	}
-
-	.entry-id {
-		display: block;
 	}
 
 	.entry-details__header {

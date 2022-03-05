@@ -1,7 +1,13 @@
-export interface Entry {
+export interface EntryBase {
 	id: number;
 	amount: number;
 	description?: string;
+}
+export interface EntryFromApi extends EntryBase {
+	created_at: Date;
+	updated_at: Date;
+}
+export interface Entry extends EntryBase {
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -19,6 +25,15 @@ export async function createEntry(entry: Partial<Entry>): Promise<Entry> {
 	return newEntry;
 }
 
+// READ
+export async function readEntries(): Promise<Entry[]> {
+	const url = 'http://localhost:3000/entries';
+	const resp = await fetch(url);
+	const data: EntryFromApi[] = await resp.json();
+
+	return data.map((entries) => parseEntry(entries));
+}
+
 export async function readEntry(id: number): Promise<Entry> {
 	const res = await fetch(`http://localhost:3000/entries/${id}`, {
 		method: 'GET',
@@ -27,8 +42,6 @@ export async function readEntry(id: number): Promise<Entry> {
 		}
 	});
 	const entry = await res.json();
-
-	console.log(entry);
 
 	return entry;
 }
@@ -41,9 +54,9 @@ export async function updateEntry(entry: Entry): Promise<Entry> {
 		},
 		body: JSON.stringify(entry)
 	});
-	const newEntry = await res.json();
+	const newEntry: EntryFromApi = await res.json();
 
-	return newEntry;
+	return parseEntry(newEntry);
 }
 
 export async function deleteEntry(id: number): Promise<void> {
@@ -53,4 +66,15 @@ export async function deleteEntry(id: number): Promise<void> {
 			'Content-Type': 'application/json'
 		}
 	});
+}
+
+// helpers
+export function parseEntry(entry: EntryFromApi): Entry {
+	return {
+		id: entry.id,
+		amount: entry.amount,
+		description: entry.description,
+		createdAt: new Date(entry.created_at),
+		updatedAt: new Date(entry.updated_at)
+	};
 }
