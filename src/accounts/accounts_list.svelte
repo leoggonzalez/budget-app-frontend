@@ -4,16 +4,12 @@
 	import { accounts } from '../stores/accounts';
 	import { deleteAccount } from '../model/accounts';
 	import AccountForm from './account_form.svelte';
+	import Account from './account.svelte';
 
 	let displayEditDialog = false;
-	const handleEdit = (id: number) => {
-		displayEditDialog = true;
-		selectedAccountId = id;
-	};
 
 	let displayDeleteDialog = false;
 	const handleDelete = async function (): Promise<void> {
-		displayDeleteDialog = true;
 		try {
 			await deleteAccount(selectedAccountId);
 			$accounts = [...$accounts.filter((account) => account.id !== selectedAccountId)];
@@ -32,13 +28,21 @@
 	<p>No accounts yet</p>
 {:else}
 	<ul class="list">
-		<Stack size="sm">
-			{#each $accounts as account (account.id)}
-				<li class="list-item">
-					{account.name}
-				</li>
-			{/each}
-		</Stack>
+		{#each $accounts as account (account.id)}
+			<li class="list-item">
+				<Account
+					{account}
+					on:edit={() => {
+						selectedAccountId = account.id;
+						displayEditDialog = true;
+					}}
+					on:delete={() => {
+						selectedAccountId = account.id;
+						displayDeleteDialog = true;
+					}}
+				/>
+			</li>
+		{/each}
 	</ul>
 	{#if displayEditDialog}
 		<AccountForm
@@ -61,3 +65,11 @@
 		/>
 	{/if}
 {/if}
+
+<style>
+	.list {
+		display: grid;
+		gap: 32px;
+		grid-template-columns: repeat(3, 1fr);
+	}
+</style>

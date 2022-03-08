@@ -1,6 +1,7 @@
 export interface AccountBase {
 	id: number;
 	name: string;
+	total: number;
 }
 export interface AccountFromApi extends AccountBase {
 	created_at: Date;
@@ -68,11 +69,12 @@ export async function deleteAccount(id: number): Promise<void> {
 }
 
 // helpers
-export function parseAccount(entry: AccountFromApi): Account {
+export function parseAccount(account: AccountFromApi): Account {
 	return {
-		id: entry.id,
-		name: entry.name,
-		createdAt: new Date(entry.created_at),
-		updatedAt: new Date(entry.updated_at)
+		id: account.id,
+		name: account.name,
+		total: account.total || 0,
+		createdAt: new Date(account.created_at),
+		updatedAt: new Date(account.updated_at)
 	};
 }

@@ -3,6 +3,7 @@
 	import Icon from './icon.svelte';
 	import Stack from './stack.svelte';
 
+	export let vertical = false;
 	export let options: Array<'edit' | 'delete'> = [];
 
 	const optionIcons = {
@@ -23,12 +24,12 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class="card">
+<div class="card" class:vertical>
 	<div class="card-body">
 		<slot />
 	</div>
 	<div class={`options-trigger ${displayOptions ? 'active' : ''}`} on:click={handleDisplayOptions}>
-		<Icon name="fa-solid fa-ellipsis-vertical" />
+		<Icon name={`fa-solid ${vertical ? 'fa-ellipsis' : 'fa-ellipsis-vertical'}`} />
 	</div>
 	<div
 		class={`options ${displayOptions ? 'active' : ''}`}
@@ -84,5 +85,24 @@
 		opacity: 1;
 		pointer-events: all;
 		transform: translateX(0);
+	}
+
+	/*CARD VERTICAL*/
+	.card.vertical {
+		padding-top: 48px;
+	}
+
+	.card.vertical .options-trigger {
+		height: auto;
+	}
+
+	.card.vertical .options {
+		transform: translateY(-100%);
+		height: auto;
+		width: 100%;
+		justify-content: flex-end;
+	}
+	.card.vertical .options.active {
+		transform: translateY(0);
 	}
 </style>

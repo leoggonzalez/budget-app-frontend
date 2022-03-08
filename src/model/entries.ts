@@ -4,12 +4,14 @@ export interface EntryBase {
 	description?: string;
 }
 export interface EntryFromApi extends EntryBase {
-	created_at: Date;
-	updated_at: Date;
+	created_at: string;
+	updated_at: string;
+	account_id: number;
 }
 export interface Entry extends EntryBase {
 	createdAt: Date;
 	updatedAt: Date;
+	accountId: number;
 }
 
 export async function createEntry(entry: Partial<Entry>): Promise<Entry> {
@@ -18,11 +20,15 @@ export async function createEntry(entry: Partial<Entry>): Promise<Entry> {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(entry)
+		body: JSON.stringify(parseEntryParams(entry))
 	});
+	if (!res.ok) {
+		throw new Error("Can't create new entry");
+	}
+
 	const newEntry = await res.json();
 
-	return newEntry;
+	return parseEntry(newEntry);
 }
 
 // READ
@@ -52,7 +58,7 @@ export async function updateEntry(entry: Entry): Promise<Entry> {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(entry)
+		body: JSON.stringify(parseEntryParams(entry))
 	});
 	const newEntry: EntryFromApi = await res.json();
 
@@ -75,6 +81,16 @@ export function parseEntry(entry: EntryFromApi): Entry {
 		amount: entry.amount,
 		description: entry.description,
 		createdAt: new Date(entry.created_at),
-		updatedAt: new Date(entry.updated_at)
+		updatedAt: new Date(entry.updated_at),
+		accountId: entry.account_id
+	};
+}
+
+export function parseEntryParams(entry: Partial<Entry>): Partial<EntryFromApi> {
+	return {
+		id: entry.id,
+		amount: entry.amount,
+		description: entry.description,
+		account_id: entry.accountId
 	};
 }
