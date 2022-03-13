@@ -11,7 +11,7 @@ export interface EntryFromApi extends EntryBase {
 export interface Entry extends EntryBase {
 	createdAt: Date;
 	updatedAt: Date;
-	accountId: number;
+	accountId: string;
 }
 
 export async function createEntry(entry: Partial<Entry>): Promise<Entry> {
@@ -82,7 +82,7 @@ export function parseEntry(entry: EntryFromApi): Entry {
 		description: entry.description,
 		createdAt: new Date(entry.created_at),
 		updatedAt: new Date(entry.updated_at),
-		accountId: entry.account_id
+		accountId: entry.account_id.toString()
 	};
 }
 
@@ -91,6 +91,6 @@ export function parseEntryParams(entry: Partial<Entry>): Partial<EntryFromApi> {
 		id: entry.id,
 		amount: entry.amount,
 		description: entry.description,
-		account_id: entry.accountId
+		account_id: Number(entry.accountId)
 	};
 }

@@ -10,7 +10,7 @@
 		{#if label}
 			<label class="form-label" for="input">{label}</label>
 		{/if}
-		<input class="form-input" id="input" type="number" bind:value />
+		<input class="form-input" id="input" type="number" bind:value step="any" />
 	</Stack>
 </div>
 
