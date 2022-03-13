@@ -17,7 +17,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let amount;
+	export let amount = 0;
 	export let description = '';
 	export let accountId = $settings.entryFormSelectedAccountId || '';
 
