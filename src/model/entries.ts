@@ -94,3 +94,12 @@ export function parseEntryParams(entry: Partial<Entry>): Partial<EntryFromApi> {
 		account_id: Number(entry.accountId)
 	};
 }
+
+export function getTotal(entries: Entry[]): number {
+	if (!entries.length) return 0;
+	return entries
+		.flatMap((entry) => entry.amount)
+		.reduce((previousValue, currentValue) => {
+			return (currentValue += previousValue);
+		});
+}

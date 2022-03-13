@@ -1,5 +1,6 @@
 <script type="ts">
 	import Card from '../components/card.svelte';
+	import Value from '../components/value.svelte';
 	import type { Entry } from '../model/entries';
 
 	export let entry: Entry;
@@ -7,14 +8,9 @@
 
 <Card options={['edit', 'delete']} on:edit on:delete>
 	<div class="entry">
-		<div class="entry-amount" class:positive={entry.amount > 0} class:negative={entry.amount < 0}>
-			{#if entry.amount > 0}
-				<h3>+</h3>
-			{:else if entry.amount < 0}
-				<h3>-</h3>
-			{/if}
+		<div class="entry-amount">
 			<h2>
-				{entry.amount}
+				<Value value={entry.amount} />
 			</h2>
 		</div>
 		<div class="entry-details">
@@ -36,10 +32,6 @@
 	.entry-amount {
 		display: flex;
 		align-items: center;
-	}
-
-	.entry-amount.positive {
-		color: var(--color-success);
 	}
 
 	.entry-details__header {

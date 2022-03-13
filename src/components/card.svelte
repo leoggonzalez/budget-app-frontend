@@ -28,9 +28,14 @@
 	<div class="card-body">
 		<slot />
 	</div>
-	<div class={`options-trigger ${displayOptions ? 'active' : ''}`} on:click={handleDisplayOptions}>
-		<Icon name={`fa-solid ${vertical ? 'fa-ellipsis' : 'fa-ellipsis-vertical'}`} />
-	</div>
+	{#if options.length}
+		<div
+			class={`options-trigger ${displayOptions ? 'active' : ''}`}
+			on:click={handleDisplayOptions}
+		>
+			<Icon name={`fa-solid ${vertical ? 'fa-ellipsis' : 'fa-ellipsis-vertical'}`} />
+		</div>
+	{/if}
 	<div
 		class={`options ${displayOptions ? 'active' : ''}`}
 		on:blur={() => (displayOptions = false)}

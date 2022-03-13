@@ -1,11 +1,14 @@
 <script type="ts">
-	import { deleteEntry } from '../model/entries';
+	import { deleteEntry, getTotal } from '../model/entries';
 	import { entries } from '../stores/entries';
 	import Stack from '../components/stack.svelte';
 	import Entry from './entry.svelte';
 	import EntryForm from './entry_form.svelte';
 	import Button from '../components/button.svelte';
 	import Confirmation from '../components/confirmation.svelte';
+	import Card from '../components/card.svelte';
+	import { countBy, filter } from 'lodash';
+	import Value from '../components/value.svelte';
 
 	let displayEditDialog = false;
 	const handleEdit = (id: number) => {
@@ -36,25 +39,48 @@
 {#if !$entries.length}
 	<p>No entries yet</p>
 {:else}
-	<ul class="list">
-		<Stack size="sm">
-			{#each $entries as entry (entry.id)}
-				<li class="list-item">
-					<Entry
-						{entry}
-						on:edit={() => {
-							displayEditDialog = true;
-							selectedEntryId = entry.id;
-						}}
-						on:delete={() => {
-							displayDeleteDialog = true;
-							selectedEntryId = entry.id;
-						}}
-					/>
-				</li>
-			{/each}
-		</Stack>
-	</ul>
+	<Stack>
+		<header>
+			<Card>
+				<small>Total</small>
+				<h2>
+					<Value value={getTotal($entries)} />
+				</h2>
+			</Card>
+			<Card>
+				<small>Income</small>
+				<h3>
+					<Value value={getTotal($entries.filter((item) => item.amount > 0))} />
+				</h3>
+			</Card>
+			<Card>
+				<small>Expenses</small>
+				<h3>
+					<Value value={getTotal($entries.filter((item) => item.amount < 0))} />
+				</h3>
+			</Card>
+		</header>
+		<div class="separator" />
+		<ul class="list">
+			<Stack size="sm">
+				{#each $entries.reverse() as entry (entry.id)}
+					<li class="list-item">
+						<Entry
+							{entry}
+							on:edit={() => {
+								displayEditDialog = true;
+								selectedEntryId = entry.id;
+							}}
+							on:delete={() => {
+								displayDeleteDialog = true;
+								selectedEntryId = entry.id;
+							}}
+						/>
+					</li>
+				{/each}
+			</Stack>
+		</ul>
+	</Stack>
 	{#if displayEditDialog}
 		<EntryForm
 			title="Edit entry"
@@ -76,3 +102,11 @@
 		/>
 	{/if}
 {/if}
+
+<style>
+	header {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+</style>

@@ -12,7 +12,11 @@
 <style>
 	.stack {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--size-md);
+	}
+	.stack > * {
+		min-width: 0;
 	}
 	.stack.line {
 		grid-auto-flow: column;

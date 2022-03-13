@@ -17,7 +17,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let amount = 0;
+	export let amount;
 	export let description = '';
 	export let accountId = $settings.entryFormSelectedAccountId || '';
 
@@ -62,13 +62,13 @@
 <Dialog {open} on:close on:confirm={onSubmit} {title} size="mobile">
 	<form on:submit={onSubmit} action="#">
 		<Stack>
-			<Numberfield label="Amount: " bind:value={amount} />
 			<Selectfield
 				label="Account"
 				bind:value={accountId}
 				options={$accounts.map((item) => ({ value: item.id.toString(), label: item.name }))}
 			/>
-			<Textfield label="Description: " bind:value={description} />
+			<Textfield label="Description: " bind:value={description} autofocus />
+			<Numberfield label="Amount: " bind:value={amount} />
 			<FormSubmit on:cancel={() => dispatch('close')} />
 		</Stack>
 	</form>

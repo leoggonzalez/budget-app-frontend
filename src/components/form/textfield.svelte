@@ -3,6 +3,7 @@
 
 	export let value: string = undefined;
 	export let label: string = undefined;
+	export let autofocus: boolean = undefined;
 </script>
 
 <div class="form-group">
@@ -10,7 +11,8 @@
 		{#if label}
 			<label class="form-label" for="input">{label}</label>
 		{/if}
-		<input class="form-input" id="input" type="text" bind:value />
+		<!-- svelte-ignore a11y-autofocus -->
+		<input class="form-input" id="input" type="text" bind:value {autofocus} />
 	</Stack>
 </div>
 
