@@ -205,5 +205,12 @@ small {
 }
 
 a {
+	text-decoration: none;
+	display: block;
+	color: inherit;
+}
+
+a.link {
 	color: var(--color-primary);
+	text-decoration: underline;
 }

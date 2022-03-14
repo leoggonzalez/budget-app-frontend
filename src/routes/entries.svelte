@@ -5,8 +5,14 @@
 	import Stack from '../components/stack.svelte';
 	import EntryForm from '../entries/entry_form.svelte';
 	import EntriesList from '../entries/entries_list.svelte';
+	import { countBy } from 'lodash';
+	import { entries } from '../stores/entries';
+	import { accounts } from '../stores/accounts';
+	import CreateEntry from '../entries/create_entry.svelte';
 
-	let displayModal: boolean;
+	$: accountsToDisplay = Object.keys(countBy($entries, 'accountId')).map((key) =>
+		$accounts.find((item) => item.id === key)
+	);
 </script>
 
 <svelte:head>
@@ -16,14 +22,8 @@
 <Page title="Entries">
 	<Stack>
 		<header>
-			<Button on:click={() => (displayModal = true)}>
-				<Icon font name="fa-solid fa-add" />
-				Add Entry
-			</Button>
+			<CreateEntry />
 		</header>
-		<EntriesList />
+		<EntriesList accounts={accountsToDisplay} />
 	</Stack>
-	{#if displayModal}
-		<EntryForm open={displayModal} on:close={() => (displayModal = false)} />
-	{/if}
 </Page>

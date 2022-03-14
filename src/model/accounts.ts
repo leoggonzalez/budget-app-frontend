@@ -1,13 +1,14 @@
 export interface AccountBase {
-	id: number;
 	name: string;
 	total: number;
 }
 export interface AccountFromApi extends AccountBase {
+	id: number;
 	created_at: Date;
 	updated_at: Date;
 }
 export interface Account extends AccountBase {
+	id: string;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -37,7 +38,7 @@ export async function readAccounts(): Promise<Account[]> {
 	}
 }
 
-export async function readAccount(id: number): Promise<Account> {
+export async function readAccount(id: number): Promise<AccountFromApi> {
 	const res = await fetch(`http://localhost:3000/accounts/${id}`, {
 		method: 'GET',
 		headers: {
@@ -71,7 +72,7 @@ export async function deleteAccount(id: number): Promise<void> {
 // helpers
 export function parseAccount(account: AccountFromApi): Account {
 	return {
-		id: account.id,
+		id: account.id.toString(),
 		name: account.name,
 		total: account.total || 0,
 		createdAt: new Date(account.created_at),

@@ -7,7 +7,7 @@
 </script>
 
 <Card vertical options={['edit', 'delete']} on:edit on:delete>
-	<div class="account">
+	<a href={`/accounts/${account.id}`} class="account">
 		<header class="account-name">
 			<h3>{account.name}</h3>
 		</header>
@@ -28,7 +28,7 @@
 				</p>
 			</div>
 		</Stack>
-	</div>
+	</a>
 </Card>
 
 <style>

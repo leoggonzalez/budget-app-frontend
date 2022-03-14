@@ -37,6 +37,7 @@
 		left: 0;
 		height: 100%;
 		width: 100%;
+		z-index: 10;
 	}
 	dialog {
 		padding: 0;
@@ -67,6 +68,7 @@
 	.dialog-background {
 		background-color: var(--color-primary);
 		opacity: 0.3;
+		z-index: 1;
 	}
 	.dialog-container {
 		position: relative;
@@ -77,6 +79,7 @@
 		display: flex;
 		flex-direction: column;
 		grid-area: dialog;
+		z-index: 2;
 	}
 
 	.dialog-header {

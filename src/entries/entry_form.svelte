@@ -19,7 +19,7 @@
 
 	export let amount = 0;
 	export let description = '';
-	export let accountId = $settings.entryFormSelectedAccountId || '';
+	export let accountId = '';
 
 	const onSubmit = async function (): Promise<void> {
 		try {
@@ -50,13 +50,11 @@
 			$settings = { ...$settings, entryFormSelectedAccountId: accountId };
 		}
 	}
-	// onMount(async () => {
-	// 	if ($settings.entryFormSelectedAccountId) {
-	// 		console.log($settings.entryFormSelectedAccountId);
-
-	// 		accountId = $settings.entryFormSelectedAccountId;
-	// 	}
-	// });
+	onMount(async () => {
+		if (!accountId && $settings.entryFormSelectedAccountId) {
+			accountId = $settings.entryFormSelectedAccountId;
+		}
+	});
 </script>
 
 <Dialog {open} on:close on:confirm={onSubmit} {title} size="mobile">

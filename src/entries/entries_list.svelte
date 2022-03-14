@@ -1,15 +1,13 @@
 <script type="ts">
 	import { deleteEntry, getTotal } from '../model/entries';
 	import { entries } from '../stores/entries';
-	import { accounts } from '../stores/accounts';
 	import Stack from '../components/stack.svelte';
 	import Entry from './entry.svelte';
 	import EntryForm from './entry_form.svelte';
 	import Confirmation from '../components/confirmation.svelte';
 	import Card from '../components/card.svelte';
 	import Value from '../components/value.svelte';
-	import { countBy, filter } from 'lodash';
-	import { each } from 'svelte/internal';
+	import type { Account } from '../model/accounts';
 
 	let displayEditDialog = false;
 
@@ -29,9 +27,7 @@
 	let selectedEntryId: number | null = null;
 	$: selectedEntry = $entries.find((entry) => entry.id === selectedEntryId);
 
-	$: accountsToDisplay = Object.keys(countBy($entries, 'accountId')).map((key) =>
-		$accounts.find((item) => item.id === Number(key))
-	);
+	export let accounts: Account[] = [];
 </script>
 
 {#if !$entries.length}
@@ -61,7 +57,7 @@
 		<div class="separator" />
 		<ul class="account-entries">
 			<Stack size="lg">
-				{#each accountsToDisplay as account}
+				{#each accounts as account}
 					<li class="account-entry">
 						<h2 class="account-name">{account?.name}</h2>
 						<ul class="list">
