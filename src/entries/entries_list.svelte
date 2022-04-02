@@ -1,5 +1,5 @@
 <script type="ts">
-	import { deleteEntry, getTotal } from '../model/entries';
+	import { deleteEntry, filterByAccount, getTotal } from '../model/entries';
 	import { entries } from '../stores/entries';
 	import Stack from '../components/stack.svelte';
 	import Entry from './entry.svelte';
@@ -8,6 +8,7 @@
 	import Card from '../components/card.svelte';
 	import Value from '../components/value.svelte';
 	import type { Account } from '../model/accounts';
+	import Button from '../components/button.svelte';
 
 	let displayEditDialog = false;
 
@@ -28,6 +29,13 @@
 	$: selectedEntry = $entries.find((entry) => entry.id === selectedEntryId);
 
 	export let accounts: Account[] = [];
+	$: accountsWithFilter = accounts.map((item) => {
+		return {
+			...item,
+			filter: filterByAccount(item),
+			limit: 5
+		};
+	});
 </script>
 
 {#if !$entries.length}
@@ -57,12 +65,12 @@
 		<div class="separator" />
 		<ul class="account-entries">
 			<Stack size="lg">
-				{#each accounts as account}
+				{#each accountsWithFilter as account}
 					<li class="account-entry">
 						<h2 class="account-name">{account?.name}</h2>
 						<ul class="list">
 							<Stack size="sm">
-								{#each $entries.filter((item) => item.accountId === account?.id.toString()) as entry (entry.id)}
+								{#each account.filter($entries, 5) as entry (entry.id)}
 									<li class="list-item">
 										<Entry
 											{entry}
@@ -77,6 +85,9 @@
 										/>
 									</li>
 								{/each}
+								{#if account.filter($entries).length > 5}
+									<li><Button href={`/accounts/${account.id}`}>See more</Button></li>
+								{/if}
 							</Stack>
 						</ul>
 					</li>

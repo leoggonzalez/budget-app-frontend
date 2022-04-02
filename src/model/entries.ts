@@ -1,3 +1,5 @@
+import type { Account } from './accounts';
+
 export interface EntryBase {
 	id: number;
 	amount: number;
@@ -102,4 +104,16 @@ export function getTotal(entries: Entry[]): number {
 		.reduce((previousValue, currentValue) => {
 			return (currentValue += previousValue);
 		});
+}
+
+export function filterByAccount(account?: Account): (entries: Entry[], limit?: number) => Entry[] {
+	return (entries: Entry[], limit?: number) => {
+		const filtered = entries.filter((entry) => entry.accountId === account?.id.toString());
+
+		if (limit) {
+			return filtered.slice(0, limit);
+		}
+
+		return filtered;
+	};
 }
